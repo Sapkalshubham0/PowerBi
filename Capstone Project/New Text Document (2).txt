@@ -1,0 +1,198 @@
+Profit Percentage = 
+DIVIDE([Profit], [Revenue], 0) * 100
+
+Certainly! Here are some additional useful measures for analyzing the sales data:
+
+### 1. **Total Discount Amount**
+   This measure calculates the total discount given on all sales.
+
+   ```DAX
+   Total Discount = 
+   SUMX(
+       'Sales',
+       'Sales'[Order Quantity] * 'Sales'[Unit Price] * ('Sales'[Unit Price Discount Pct] / 100)
+   )
+   ```
+
+### 2. **Average Order Value**
+   This measure calculates the average revenue per order, which helps in understanding customer purchasing behavior.
+
+   ```DAX
+   Average Order Value = 
+   DIVIDE([Revenue], COUNTROWS('Sales'), 0)
+   ```
+
+### 3. **Gross Margin Percentage**
+   This measure indicates the percentage of revenue that exceeds the cost of goods sold, often used to assess profitability.
+
+   ```DAX
+   Gross Margin Percentage = 
+   DIVIDE([Profit], [Revenue], 0) * 100
+   ```
+
+### 4. **Total Units Sold**
+   This measure calculates the total number of units sold across all orders.
+
+   ```DAX
+   Total Units Sold = 
+   SUM('Sales'[Order Quantity])
+   ```
+
+### 5. **Average Discount Percentage**
+   This measure shows the average discount percentage applied across all sales, which can be useful for analyzing pricing strategies.
+
+   ```DAX
+   Average Discount Percentage = 
+   AVERAGE('Sales'[Unit Price Discount Pct])
+   ```
+
+### 6. **Cost of Goods Sold (COGS)**
+   This measure calculates the total cost of goods sold based on the standard cost and quantity sold.
+
+   ```DAX
+   COGS = 
+   SUMX(
+       'Sales',
+       'Sales'[Order Quantity] * 'Sales'[Product Standard Cost]
+   )
+   ```
+
+### 7. **Order Count**
+   This measure counts the total number of unique sales orders, which can be useful for understanding order volume.
+
+   ```DAX
+   Order Count = 
+   DISTINCTCOUNT('Sales'[SalesOrderLineKey])
+   ```
+
+### 8. **Sales Growth Percentage**
+   This measure calculates the percentage growth in sales compared to the previous period, providing insights into trends.
+
+   ```DAX
+   Sales Growth Percentage = 
+   DIVIDE(
+       [Revenue] - CALCULATE([Revenue], DATEADD('Date'[Date], -1, YEAR)),
+       CALCULATE([Revenue], DATEADD('Date'[Date], -1, YEAR)),
+       0
+   ) * 100
+   ```
+
+### 9. **Top Product Revenue Contribution**
+   This measure calculates the revenue contribution of the top product by sales to the total revenue.
+
+   ```DAX
+   Top Product Revenue Contribution = 
+   DIVIDE(
+       CALCULATE([Revenue], 
+                 'Sales'[ProductKey] = 
+                 TOPN(1, 'Sales', [Revenue], DESC)
+                ),
+       [Revenue], 0
+   ) * 100
+   ```
+
+### 10. **Average Selling Price per Unit**
+   This measure calculates the average selling price for each unit sold.
+
+   ```DAX
+   Average Selling Price = 
+   DIVIDE([Revenue], [Total Units Sold], 0)
+   ```
+
+These measures provide deeper insights into your data, such as profit margins, order behavior, sales growth, and product performance. You can use these measures in visualizations and dashboards to enhance data analysis in Power BI.
+____________________________________________________________________________________________________________________
+To meet the CEO's requirements effectively, here are some Power BI visualizations you can use:
+
+### 1. **Map Visual**
+- **Purpose**: Display profit/loss by country with tooltips for detailed insights.
+- **Implementation**: 
+  - Use a **Filled Map** or **Shape Map** to visualize the countries.
+  - Set the **Location** to the country field and the **Values** to the profit/loss measure.
+  - Customize the tooltip to show profit development over time (e.g., a line chart showing profit trends).
+
+### 2. **Line Chart**
+- **Purpose**: Show overall revenue development over time.
+- **Implementation**:
+  - Use a **Line Chart** with time on the X-axis (e.g., months or quarters) and total revenue on the Y-axis.
+  - You can add a trend line to highlight overall revenue trends.
+
+### 3. **Matrix Visual**
+- **Purpose**: Analyze profit across categories and subcategories.
+- **Implementation**:
+  - Create a **Matrix** visual where rows represent categories and subcategories, and columns represent profit.
+  - Use **conditional formatting** (like data bars) to visually emphasize profit levels. Set thresholds to distinguish between high and low profits.
+
+### 4. **Bar/Column Chart**
+- **Purpose**: Compare profit across categories or countries.
+- **Implementation**:
+  - Use a **Clustered Bar Chart** or **Column Chart** to visualize profit by category or country.
+  - This can complement the matrix visual, providing a quick comparison.
+
+### 5. **Tooltip Page**
+- **Purpose**: Enhance user experience by showing additional data on hover.
+- **Implementation**:
+  - Create a dedicated tooltip page that includes visuals such as line charts (for profit development), bar charts, or cards (showing key metrics).
+  - Set this page as a tooltip for the map visual and other relevant visuals.
+
+### Summary of Visuals:
+- **Filled Map**: To visualize profit/loss by country with tooltips.
+- **Line Chart**: For overall revenue development over time.
+- **Matrix Visual**: To display profit by categories and subcategories with conditional formatting.
+- **Clustered Bar/Column Chart**: For comparing profits easily.
+- **Tooltip Page**: For enriched hover-over insights.
+
+These visuals will provide a comprehensive dashboard that meets the CEO’s requirements for profit insights, revenue trends, and detailed category analysis.
+
+
+
+____________________________________________________________________________________________________________
+
+
+
+To fulfill the requirements of the Marketing and Products team using Power BI, here are some effective visualizations you can use:
+
+### 1. **Total Sales Amount Year to Date**
+- **Visual**: **Card Visual**
+  - **Purpose**: Display the total sales amount year to date prominently.
+  - **Implementation**: Use a card visual to show the YTD sales measure. This provides a quick overview at the top of the dashboard.
+
+### 2. **Difference in Profit Compared to Previous Year**
+- **Visual**: **Column Chart with Line**
+  - **Purpose**: Visualize profit comparisons year over year.
+  - **Implementation**: Use a clustered column chart with one bar for the current year’s profit and another for the previous year. Overlay a line chart showing the difference in profit to clearly see trends.
+
+### 3. **Detailed Orders Page**
+- **Visual**: **Table Visual**
+  - **Purpose**: Provide a detailed view of individual orders.
+  - **Implementation**: Create a detailed table that includes columns for order date, order quantity, revenue, profit, product, and country. Enable drill-through functionality from the Executive Summary page to this details page for easy navigation.
+
+### 4. **Customer Analysis Page**
+- **Visuals**:
+  - **Bar Chart**: For average profit per customer over time.
+  - **Table/Matrix Visual**: For top 10 customers by revenue.
+  - **Implementation**: 
+    - Use a line chart to show the average profit per customer changing over time.
+    - Use a table or matrix visual to list the top 10 customers based on total revenue, highlighting key metrics.
+
+### 5. **Revenue Development by Category Page**
+- **Visual**: **Stacked Area Chart**
+  - **Purpose**: Show revenue trends across different categories over time.
+  - **Implementation**: Use a stacked area chart with time on the X-axis and revenue on the Y-axis, with different categories represented by different colors. This will visually convey how each category has evolved.
+
+### 6. **Profit Margin Development Page**
+- **Visuals**:
+  - **Line Chart**: For overall profit margin over time.
+  - **Bar Chart**: For profit margins of categories, subcategories, and products.
+  - **Implementation**: 
+    - Use a line chart to display profit margin (profit/revenue) over time, allowing users to track changes.
+    - Use a clustered bar chart to compare profit margins across categories, subcategories, and products, helping identify which areas are the most profitable.
+
+### Summary of Suggested Visuals:
+1. **Card Visual**: Total sales amount year to date.
+2. **Column Chart with Line**: Profit comparison to the previous year.
+3. **Table Visual**: Detailed list of orders with drill-through from the Executive Summary.
+4. **Bar Chart & Table**: Customer analysis showing average profit per customer and top 10 customers.
+5. **Stacked Area Chart**: Revenue development by category over time.
+6. **Line Chart & Bar Chart**: Profit margin development over time and by categories/subcategories/products.
+
+These visualizations will create a comprehensive and user-friendly dashboard that meets the needs of the Marketing and Products team for effective analysis and decision-making.
