@@ -2,8 +2,6 @@
 Over the past 15 days, I completed the 15 Days of Power BI course on Udemy, gaining comprehensive skills in Microsoft Power BI. This intensive program covered data exploration, transformation, visualization, and advanced custom visualizations like histograms and brick charts. I also learned to create interactive dashboards, integrate multiple data sources, and present data effectively. These skills enhance my ability to analyze complex data and support data-driven decision-making.​
 
 What i have learned in course are following points :
-The **15 Days of Power BI** course on Udemy is structured to provide a comprehensive understanding of Microsoft Power BI over a 15-day period. Here's a detailed breakdown of the topics covered each day:
-
 1. **Introduction to Power BI**
    - Overview of Power BI components and architecture.
    - Understanding the Power BI ecosystem.
